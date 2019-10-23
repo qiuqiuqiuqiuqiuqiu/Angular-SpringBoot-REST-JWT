@@ -23,11 +23,9 @@ export class LoginComponent implements OnInit {
     login() {
         this.loginService.getToken(this.model.username, this.model.password)
             .subscribe(resp => {
-                    if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID" ){
-                        this.errMsg = 'Username or password is incorrect';
-                        return;
+                    if (resp.user !== undefined && resp.user.token !== undefined && resp.user.token !== "INVALID" ){
+                        this.router.navigate([resp.landingPage]);
                     }
-                    this.router.navigate([resp.landingPage]);
                 },
                 errResponse => {
                   switch(errResponse.status){
